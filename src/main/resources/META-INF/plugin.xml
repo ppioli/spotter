@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>dev.ppioli.Spotter</id>
+    <name>Spotter. Sharpshooter Companion</name>
+    <vendor email="pablopioli@gmail.com" url="https://github.com/ppioli/spotter">ppioli</vendor>
+
+    <description><![CDATA[
+    Sharpshooter snapshot testing companion.<br>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+
+        <action id="ShowDiffAction" class="ShowDiffAction" text="Show differences"
+                description="Show snapshot differences">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
+        </action>
+    </actions>
+</idea-plugin>
