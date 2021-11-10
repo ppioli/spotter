@@ -7,7 +7,6 @@ plugins {
 }
 
 group 'dev.ppioli'
-version '1.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -35,7 +34,8 @@ release {
     tagCommitMessage = '[Gradle Release Plugin] - creating tag: '
     newVersionCommitMessage = '[Gradle Release Plugin] - new version commit: '
     tagTemplate = 'v${version}'
-    versionProperties = [version]
+    versionProperties = []
+    versionPropertyFile = 'gradle.properties'
     snapshotSuffix = '-SNAPSHOT'
     buildTasks = ['buildPlugin']
     ignoredSnapshotDependencies = []
