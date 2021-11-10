@@ -1,10 +1,13 @@
+import java.util.regex.Matcher
+
 plugins {
     id 'org.jetbrains.intellij' version '1.2.1'
+    id 'net.researchgate.release' version '2.8.1'
     id 'java'
 }
 
 group 'dev.ppioli'
-version '1.0-SNAPSHOT'
+version '1.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -18,6 +21,40 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version = '2021.2.2'
+}
+
+release {
+    failOnCommitNeeded = true
+    failOnPublishNeeded = true
+    failOnSnapshotDependencies = true
+    failOnUnversionedFiles = true
+    failOnUpdateNeeded = true
+    revertOnFail = true
+    preCommitText = ''
+    preTagCommitMessage = '[Gradle Release Plugin] - pre tag commit: '
+    tagCommitMessage = '[Gradle Release Plugin] - creating tag: '
+    newVersionCommitMessage = '[Gradle Release Plugin] - new version commit: '
+    tagTemplate = 'v${version}'
+    versionProperties = [version]
+    snapshotSuffix = '-SNAPSHOT'
+    buildTasks = ['buildPlugin']
+    ignoredSnapshotDependencies = []
+    versionPatterns = [
+            /(\d+)([^\d]*$)/: { Matcher m, Project p -> m.replaceAll("${(m[0][1] as int) + 1}${m[0][2]}") }
+    ]
+    pushReleaseVersionBranch = false
+    scmAdapters = [
+            net.researchgate.release.GitAdapter,
+    ]
+
+    git {
+        requireBranch = 'main'
+        pushToRemote = 'origin'
+        pushToBranchPrefix = ''
+        commitVersionFileOnly = false
+        signTag = false
+    }
+
 }
 
 patchPluginXml {
